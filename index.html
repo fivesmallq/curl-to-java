@@ -17,7 +17,7 @@
 			<h2>Instantly convert <a href="http://curl.haxx.se/">curl</a> commands to <a href="https://www.oracle.com/java/">Java</a> code</h2>
 
 			<p>
-				This tool turns a curl command into Java code. Currently, it knows the following options: -d/--data, -H/--header, -I/--head, -u/--user, --url, and -X/--request.  Feel free to <a href="https://github.com/fivesmallq/curl-to-java">contribute on GitHub</a>!
+				This tool turns a curl command into Java <a target="_blank" href="https://hc.apache.org/httpcomponents-client-ga/tutorial/html/fluent.html">Apache HttpClient Fluent</a> code. Currently, it knows the following options: -d/--data, -H/--header, -I/--head, --url, and -X/--request.  Feel free to <a href="https://github.com/fivesmallq/curl-to-java">contribute on GitHub</a>!
 			</p>
 			<p>
 				This script derives from Matt Holt's excellent <a href="https://github.com/mholt/curl-to-go">curl-to-Go</a> and <a href="https://github.com/incarnate/curl-to-php">curl-to-php</a>.
@@ -35,6 +35,13 @@
 			<textarea id="input" rows="4" placeholder="Paste curl here"></textarea>
 			<div id="output"></div>
 		</main>
+
+
+		<p>
+			Note: Apache HttpClient Fluent Maven Central: <a target="_blank" href="https://maven-badges.herokuapp.com/maven-central/org.apache.httpcomponents/fluent-hc">
+<img border="0" alt="Maven Central" src="https://maven-badges.herokuapp.com/maven-central/org.apache.httpcomponents/fluent-hc/badge.svg" >
+		</p>
+
 
 		<footer>
 			&copy; <script>document.write(new Date().getFullYear());</script> fivesmallq - <a href="https://github.com/fivesmallq/curl-to-java">View on GitHub</a> - <a id="dark" href="javascript:">dark mode</a>
