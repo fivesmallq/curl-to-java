@@ -19,7 +19,9 @@ function curlToJava(curl) {
 		"HttpResponse": "org.apache.http.HttpResponse",
 		"ContentType": "org.apache.http.entity.ContentType",
 		"EntityUtils": "org.apache.http.util.EntityUtils",
-		"File": "java.io.File"
+		"File": "java.io.File",
+		"Base64": "java.util.Base64",
+		"StandardCharsets": "java.nio.charset.StandardCharsets"
 	};
 
 	// HTTP methods the fluent API exposes a Request helper for.
@@ -139,7 +141,9 @@ function curlToJava(curl) {
 
 		// set basic auth
 		if (req.basicauth) {
-			//java += 'req.SetBasicAuth('+goExpandEnv(req.basicauth.user)+', '+goExpandEnv(req.basicauth.pass)+')\n';
+			java += 'String credentials = '+JSON.stringify(req.basicauth.user+":"+req.basicauth.pass)+';\n';
+			java += 'request.setHeader("Authorization", "Basic " + Base64.getEncoder()\n'
+				+'\t\t.encodeToString(credentials.getBytes(StandardCharsets.UTF_8)));\n';
 		}
 
 		// set headers
@@ -232,14 +236,17 @@ function curlToJava(curl) {
 			basicAuthString = cmd.user[cmd.user.length-1];
 		else if (cmd.u && cmd.u.length > 0)
 			basicAuthString = cmd.u[cmd.u.length-1];
-		var basicAuthSplit = basicAuthString.indexOf(":");
-		if (basicAuthSplit > -1) {
-			relevant.basicauth = {
-				user: basicAuthString.substr(0, basicAuthSplit),
-				pass: basicAuthString.substr(basicAuthSplit+1)
-			};
-		} else {
-			relevant.basicAuth = { user: basicAuthString, pass: "<PASSWORD>" };
+		if (basicAuthString) {
+			var basicAuthSplit = basicAuthString.indexOf(":");
+			if (basicAuthSplit > -1) {
+				relevant.basicauth = {
+					user: basicAuthString.substr(0, basicAuthSplit),
+					pass: basicAuthString.substr(basicAuthSplit+1)
+				};
+			} else {
+				// curl prompts for the password when -u carries no colon
+				relevant.basicauth = { user: basicAuthString, pass: "<PASSWORD>" };
+			}
 		}
 
 		// default to GET if nothing else specified
