@@ -9,6 +9,19 @@ curl-to-java is a tool to instantly convert [curl](http://curl.haxx.se) commands
 **[Check it out!](https://fivesmallq.github.io/curl-to-java)** It works inside your browser. Just give the code a once-over since it will need you to flush out some parts like error handling.
 
 
+### Dependencies
+
+The generated code uses [Apache HttpClient Fluent](https://hc.apache.org/httpcomponents-client-ga/tutorial/html/fluent.html) from Apache HttpComponents. Add the following to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>fluent-hc</artifactId>
+    <version>4.5.13</version>
+</dependency>
+```
+
+
 ### FAQ
 
 #### Does any curl command work?
